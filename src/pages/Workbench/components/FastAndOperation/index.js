@@ -46,7 +46,6 @@ const FastAndOperation = () => {
                 const {code , msg, data} = await postDmmLogListDmmLog(parames);
                 if(code === '20000') {
                     setListStatusData(data.records)
-                    console.log(data);
                 }else{
                     message.error(msg)
                 }

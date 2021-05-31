@@ -30,7 +30,6 @@ const Login = () => {
         ; (async () => {
             const { code, msg, data } = await postSysUserlogin(values);
             if (code === '20000') {
-                console.log(data)
                 localStorage.setItem('token', data.token);
                 sessionStorage.setItem('companyId', data.companyId);
                 // let userString = decodeURIComponent(escape(window.atob(data.split('.')[1])))

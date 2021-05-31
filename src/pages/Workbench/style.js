@@ -11,9 +11,6 @@ export const WorkbenchAll = styled.div`
     .ant-btn{
         margin-right: 10px;
     }
-    .WorkbenchAllDataDiv{
-        
-    }
 `
 export const WorkbenchAllData = styled.div`
     display: flex;

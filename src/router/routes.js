@@ -2,7 +2,19 @@ import React from "react";
 //工作台
 import Workbench from '../pages/Workbench';
 //组织机构
-import Company from '../pages/Company'
+import CompanyList from '../pages/Company/CompanyList';
+//企业详情
+import CompanyDetails from '../pages/Company/CompanyDetails';
+//设备管理-设备信息
+import EquipmentMessage from '../pages/EquipmentManagement/EquipmentMessage';
+//设备管理-型号管理
+import ModelManagement from '../pages/EquipmentManagement/ModelManagement';
+//设置 - 权限管理
+import Confine from '../pages/Set/Confine';
+//设置 - 岗位管理
+import PostManagement from '../pages/Set/PostManagement';
+//设置 - 权限管理
+import User from '../pages/Set/User';
 
 
 //导航
@@ -19,15 +31,81 @@ const menuRouter = [
         component: Workbench,
     },
     {
-        key: 'company',
+        key: 'Company-list',
         meta: {
             title: "组织机构",
             icon: <span className="anticon anticon-appstore">
                 <span className="icon iconfont icon-dingdan"></span>
             </span>,
         },
-        path: "/company",
-        component: Company,
+        path: "/Company/list",
+        component: CompanyList,
+    },
+    {
+        key: 'equipment-Management',
+        meta: {
+            title: "设备管理",
+            icon: <span className="anticon anticon-appstore">
+                <span className="icon iconfont icon-dingdan"></span>
+            </span>,
+        },
+        path: "/equipment/message",
+        component: EquipmentMessage,
+        page: [
+            {
+                key: 'equipment-message',
+                meta: {
+                    title: '设备信息'
+                },
+                path: "/equipment/message",
+                component: EquipmentMessage,
+            },
+            {
+                key: 'model-management',
+                meta: {
+                    title: '型号管理'
+                },
+                path: "/model/management",
+                component: ModelManagement,
+            }
+        ]
+    },
+    {
+        key: 'system-set',
+        meta: {
+            title: "系统设置",
+            icon: <span className="anticon anticon-appstore">
+                <span className="icon iconfont icon-dingdan"></span>
+            </span>,
+        },
+        path: "/confine",
+        component: Confine,
+        page: [
+            {
+                key: 'confine',
+                meta: {
+                    title: '权限管理'
+                },
+                path: "/confine",
+                component: Confine,
+            },
+            {
+                key: 'post-management',
+                meta: {
+                    title: '岗位管理'
+                },
+                path: "/post/management",
+                component: PostManagement,
+            },
+            {
+                key: 'user',
+                meta: {
+                    title: '用户管理'
+                },
+                path: "/user",
+                component: User,
+            },
+        ]
     },
     // {
     //     key: 'send-car',
@@ -102,9 +180,9 @@ let menuRouterData = dataDispose(menuRouter);
 
 const userRouter = [
     ...menuRouterData,
-    // {
-    //     path: '/stock/bin/details',
-    //     component: StockBinDetails
-    // }
+    {
+        path: '/company/details',
+        component: CompanyDetails
+    }
 ];
 export { menuRouter, userRouter, };
