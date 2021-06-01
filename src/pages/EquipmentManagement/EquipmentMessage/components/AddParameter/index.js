@@ -11,9 +11,9 @@ import {
     Select
 } from 'antd'
 
-const AddParameter = ({ addParameterModal, setAddParameterModal, deviceCode }) => {
+const AddParameter = ({ addParameterModal, setAddParameterModal, deviceCode, setDeviceCode }) => {
     const [form] = Form.useForm();
-    const {validateFields} = form;
+    const { validateFields, resetFields } = form;
     const [paramesList, setParamesList] = useState([]); //参数
     const paramesFun = useCallback(
         () => {
@@ -33,33 +33,34 @@ const AddParameter = ({ addParameterModal, setAddParameterModal, deviceCode }) =
     }, [paramesFun])
     const handleOk = () => {
         validateFields().then(values => {
-            console.log(values)
-            // setAddParameterModal(false);
             const parames = {
                 deviceCode: deviceCode,
-                params:[values]
+                params: [values]
             }
-            ;(async () => {
-                const {code, msg} = await postDmmDeviceAddParam(parames);
-                if(code === '20000') {
+            ; (async () => {
+                const { code, msg } = await postDmmDeviceAddParam(parames);
+                if (code === '20000') {
                     message.success('添加参数成功！')
+                    resetFields();
+                    setDeviceCode(null);
                     setAddParameterModal(false);
-                }else{
+                } else {
                     message.error(msg);
                 }
             })()
         })
-        
+
     };
 
     const handleCancel = () => {
+        resetFields();
         setAddParameterModal(false);
     };
     return <Modal title="添加参数" visible={addParameterModal} onOk={handleOk} onCancel={handleCancel}>
         <Form
             {...layout}
             initialValues={{ remember: true }}
-            form = {form}
+            form={form}
         >
             <Form.Item
                 label="参数"

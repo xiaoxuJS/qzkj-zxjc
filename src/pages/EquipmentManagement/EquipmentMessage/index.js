@@ -97,7 +97,7 @@ const EquipmentMessage = () => {
     const handleAddModalShow = () => {
         setAddModal(true)
     }
-    //修改参数
+    //参数删除
     const handleParameterSetModal = (deviceCode) => {
         setDeviceCode(deviceCode);
         setParameterSetModalShow(true);
@@ -190,10 +190,11 @@ const EquipmentMessage = () => {
             clickId={clickId}
             setDeviceCode={setDeviceCode}
         />
-        <AddParameter 
-            addParameterModal = {addParameterModal}
-            setAddParameterModal = {setAddParameterModal}
-            deviceCode = {deviceCode}
+        <AddParameter
+            addParameterModal={addParameterModal}
+            setAddParameterModal={setAddParameterModal}
+            deviceCode={deviceCode}
+            setDeviceCode={setDeviceCode}
         />
     </EquipmentMessageAll>
 }
