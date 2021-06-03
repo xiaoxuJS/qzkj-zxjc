@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
+    useHistory
+} from 'react-router-dom'
+import {
     postDmmDeviceFindDevice,
     getDmmDeviceDeleteDevice, //deviceId
 } from '../../../api/equipmentUrl';
@@ -25,6 +28,7 @@ const { confirm } = Modal;
 
 
 const EquipmentMessage = () => {
+    const history = new useHistory();
     const [listData, setListData] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -130,11 +134,16 @@ const EquipmentMessage = () => {
                 })();
             }
         });
+    };
+    //进入设备详情
+    const handleEnterDetails = id => {
+        history.push({pathname: '/equipmentMessage/details', state: {deviceId: id}});
     }
     const columns = [
         {
             title: '设备编号',
-            dataIndex: 'deviceCode'
+            dataIndex: 'deviceCode',
+            render: (text, recode ) => <Button type = 'link' onClick = {() => handleEnterDetails(recode.id)}  >{text}</Button>
         },
         {
             title: '设备名称',

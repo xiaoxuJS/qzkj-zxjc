@@ -14,25 +14,25 @@ const FrameNav = ({ menuData }) => {
     const [leftKey, setLeftKey] = useState([undefined]);
     useEffect(() => {
         const sessionValue = JSON.parse(sessionStorage.getItem('leftKey'));
-        if(sessionValue) {
+        if (sessionValue) {
             setLeftKey(sessionValue)
         }
     }, [location.pathname])
     const handleChangeEnterPage = (path) => {
         history.push(path);
     }
-    const handleGetKey = ({keyPath}) => {
+    const handleGetKey = ({ keyPath }) => {
         sessionStorage.setItem('leftKey', JSON.stringify(keyPath));
         setLeftKey(keyPath)
     }
 
     return (
         <Menu
-        mode="inline"
-        theme="dark"
-            selectedKeys= {leftKey}
+            mode="inline"
+            theme="dark"
+            selectedKeys={leftKey}
             style={{ borderRight: 0 }}
-            onClick = {handleGetKey}
+            onClick={handleGetKey}
         >
             {menuData
                 ? menuData.map((item) => {
@@ -45,17 +45,28 @@ const FrameNav = ({ menuData }) => {
                                         icon={item.meta.icon}
                                         title={item.meta.title}
                                     >
-                                        {item.page
-                                            ? item.page.map((data) => {
-
-                                                return <Menu.Item
-                                                    key={data.key}
-                                                    onClick={() => handleChangeEnterPage(data.path)}
-                                                >
-                                                    {data.meta.title}
-                                                </Menu.Item>;
-                                            })
-                                            : null}
+                                        {item.page.map((data) =>
+                                        (data.page
+                                            ?
+                                            <SubMenu key={data.key} title={data.meta.title}>
+                                                {
+                                                    data.page.map(val => <Menu.Item
+                                                        key={val.key}
+                                                        onClick={() => handleChangeEnterPage(val.path)}
+                                                    >
+                                                        {val.meta.title}
+                                                    </Menu.Item>)
+                                                }
+                                            </SubMenu>
+                                            :
+                                            <Menu.Item
+                                                key={data.key}
+                                                onClick={() => handleChangeEnterPage(data.path)}
+                                            >
+                                                {data.meta.title}
+                                            </Menu.Item>
+                                        )
+                                        )}
                                     </SubMenu>
                                     : <Menu.Item
                                         key={item.key}

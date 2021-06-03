@@ -71,11 +71,12 @@ const AddEquipment = ({ addModal, setAddModal, listFun }) => {
     }, [companyFun, modelFun, paramesFun])
     const handleOk = () => {
         validateFields().then(values => {
-            console.log(values)
             ;(async () => {
                 const {code, msg} = await putDmmDeviceInsertDevice(values);
                 if(code === '20000') {
-                    listFun();
+                    if(listFun) {
+                        listFun();
+                    }
                     resetFields();
                     message.success('添加成功')
                     setAddModal(false);

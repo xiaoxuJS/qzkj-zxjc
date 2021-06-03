@@ -26,10 +26,8 @@ const CompanyChangeModal = ({ companyChangeModalShow, setCompanyChangeModalShow,
                 ;(async () => {
                     const {code, msg, data} = await getcpCompanyFindCompany({companyId:clickData });
                     if(code === '20000') {
-                        console.log(data);
                         const logUrl = data.log;
                         delete data.log;
-                        console.log(data)
                         setFieldsValue(data);
                         setImageUrl(logUrl);
                     }else{
@@ -73,7 +71,6 @@ const CompanyChangeModal = ({ companyChangeModalShow, setCompanyChangeModalShow,
             return;
         }
         if (info.file.status === 'done') {
-            console.log(info.file)
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, () => {
                 setImageUrl(info.file.response.data)
@@ -85,12 +82,10 @@ const CompanyChangeModal = ({ companyChangeModalShow, setCompanyChangeModalShow,
     //信息更新确认
     const handleOk = () => {
         validateFields().then((values) => {
-            console.log(values)
             if(values.log) {
                 values.log = imageUrl
             }
             values.id = clickData;
-            console.log(values)
             ;(async () => {
                 const {code , msg} = await postcpCompanyUpdateCompany(values);
                 if(code === '20000') {

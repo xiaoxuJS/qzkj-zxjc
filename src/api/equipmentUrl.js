@@ -83,6 +83,36 @@ export function postDmmDeviceAddParam(data) {
     const url = ip + '/dmmDevice/add/param';
     return http(url, "post", data)
 }
+//设备详情
+export function getDmmDeviceFindDetailsDevice(data) {
+    const url = ip + '/dmmDevice/find/detailsDevice';
+    return http(url, "get", data)
+}
+//设备管理员列表
+export function getSysUserFindDevUser(data) {
+    const url = ip + '/sysUser/findDevUser';
+    return http(url, "get", data)
+}
+//设备管理员列表
+export function postDmmDeviceBindDevUser(data) {
+    const url = ip + '/dmmDevice/bind/devUser';
+    return http(url, "post", data)
+}
+//解除绑定管理员
+export function getDmmDeviceRelieveBind(data) {
+    const url = ip + '/dmmDevice/relieve/bind';
+    return http(url, "get", data)
+}
+//设备运行日志
+export function postDmmLogListDmmLog(data) {
+    const url = ip + '/dmmLog/list/dmmLog';
+    return http(url, "post", data)
+}
+//设备运行日志导出
+export function postDmmLogListExport(data) {
+    const url = ip + '/dmmLog/list/export';
+    return http(url, "get", data)
+}
 //设备信息回显
 
 

@@ -32,6 +32,10 @@ const Login = () => {
             if (code === '20000') {
                 localStorage.setItem('token', data.token);
                 sessionStorage.setItem('companyId', data.companyId);
+                sessionStorage.setItem('userId', data.userId);
+                sessionStorage.setItem('phone', data.phone);
+                sessionStorage.setItem('leftKey', JSON.stringify(['workbench']));
+                sessionStorage.setItem('head', data.head);
                 // let userString = decodeURIComponent(escape(window.atob(data.split('.')[1])))
                 // let user = JSON.parse(userString);
                 // sessionStorage.setItem('userInfo', JSON.stringify(user));
@@ -57,7 +61,6 @@ const Login = () => {
             return;
         }
         setAuthCode(false);
-        console.log(mobile)
         ;(async () => {
             const {code , msg, data} = await getSysGetCode({mobile});
             if(code === '20000') {
@@ -107,7 +110,7 @@ const Login = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your username!',
+                                            message: '请输入账号!',
                                         },
                                     ]}
                                 >
@@ -120,7 +123,7 @@ const Login = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your password!',
+                                            message: '请输入密码!',
                                         },
                                     ]}
                                 >
@@ -147,7 +150,7 @@ const Login = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your username!',
+                                            message: '请输入手机号!',
                                         },
                                     ]}
                                 >
@@ -160,7 +163,7 @@ const Login = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your password!',
+                                            message: '请输入验证码!',
                                         },
                                     ]}
                                 >
@@ -191,7 +194,6 @@ const Login = () => {
                 </Card>
 
             </LoginBox>
-            <Button onClick={() => handleEnterPage()}></Button>
         </LoginAll>
     )
 };

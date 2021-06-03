@@ -109,17 +109,17 @@ const CompanyAddModal = ({ companyAddModalShow, setCompanyAddModalShow, companyL
     //确定提交
     const handleOk = () => {
         validateFields().then((values) => {
-            console.log(values)
             if(values.log) {
                 values.log = values.log.file.response.data
             }
             values.coordinate = values.coordinate[values.coordinate.length - 1]
-            console.log(values)
             ;(async () => {
                 const {code , msg} = await putcpCompanyInsertCompany(values);
                 if(code === '20000') {
                     setImageUrl(null);
-                    companyListFun();
+                    if(companyListFun) {
+                        companyListFun()
+                    }
                     resetFields();
                     setCompanyAddModalShow(false);
                 }else{

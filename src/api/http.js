@@ -1,8 +1,8 @@
 import Axios from 'axios';
 let ip = "";
 if (process.env.NODE_ENV === 'development') { //开发环境;
-    ip = 'http://47.98.41.126:2121/monitoring'; //服务器地址:58157
-    // ip = 'http://192.168.3.5:2121/monitoring/'; //服务器地址:58157
+    // ip = 'http://47.98.41.126:2121/monitoring'; //服务器地址:58157
+    ip = 'http://192.168.3.5:2121/monitoring'; //服务器地址:58157
     // ip = 'http://47.98.41.126:58157/smart/loading'; //服务器地址:58157
     //设置变量
     // url6 = "http://192.168.3.5:21322/communicate/sendMessage";

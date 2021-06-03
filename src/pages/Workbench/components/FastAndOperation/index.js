@@ -1,8 +1,13 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import {
+    useHistory
+} from 'react-router-dom'
+import {
     postSysLogFindLog,
     postDmmLogListDmmLog
 } from '../../../../api/workbenchUrl';
+import AddEquipment from '../../../EquipmentManagement/EquipmentMessage/components/AddEquipment'
+import CompanyAddModal from '../../../Company/CompanyList/components/CompanyAddModal';
 import {
     FastAndOperationAll,
     FastAndOperationRight,
@@ -19,8 +24,11 @@ import {
 } from 'antd';
 
 const FastAndOperation = () => {
+    const history = new useHistory();
     const [listData, setListData] = useState([]);
     const [listStatusData, setListStatusData] = useState([]);
+    const [addModalCompany, setAddModalCompany] = useState(false);
+    const [addModalEquipment, setAddModalEquipment] = useState(false);
     const listFun = useCallback(
         (parames) => {
             ; (async () => {
@@ -68,6 +76,19 @@ const FastAndOperation = () => {
             bdt: e.target.value
         }
         listFun(parames);
+    }
+    //添加客户
+    const handleAddCompany = () => {
+        setAddModalCompany(true);
+    }
+    //添加设备
+    const handleAddEquipment = () => {
+        setAddModalEquipment(true);
+    }
+    //添加用户
+    const handleAddUser = () => {
+        sessionStorage.setItem('leftKey',JSON.stringify(['user-list']))
+        history.push('/user/list')
     }
     const columns = [
         {
@@ -120,19 +141,19 @@ const FastAndOperation = () => {
         <FastAndOperationRight>
             <Card title="快捷应用"style={{ flex: 3, marginTop: '14px' }}>
                 <FastAndOperationIcon>
-                    <div className='addIcon'>
+                    <div className='addIcon' onClick = {() =>handleAddCompany()}>
                         <img src={kehu} alt = '添加客户'/>
                         <p>
                             添加客户
                         </p>
                     </div>
-                    <div className='addIcon'>
+                    <div className='addIcon' onClick = {() =>handleAddEquipment()}>
                         <img src={shebei} alt = '添加设备'/>
                         <p>
                             添加设备
                         </p>
                     </div>
-                    <div className='addIcon'>
+                    <div className='addIcon' onClick = {() =>handleAddUser()}>
                         <img src={yonghu} alt = '添加用户'/>
                         <p>
                             添加用户
@@ -145,6 +166,8 @@ const FastAndOperation = () => {
                 <Table columns={columnsStatus} dataSource={listStatusData} rowKey='collectDate' size='small' />
             </Card>
         </FastAndOperationRight>
+        <CompanyAddModal companyAddModalShow={addModalCompany} setCompanyAddModalShow={setAddModalCompany} companyListFun={null} />
+        <AddEquipment setAddModal={setAddModalEquipment} addModal={addModalEquipment} listFun={null} />
 
     </FastAndOperationAll>
 }

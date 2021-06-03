@@ -92,7 +92,6 @@ const Company = () => {
     }
     //form
     const onFinish = (values) => {
-        console.log('Success:', values);
         const parames = {
             ...values,
             currentPage: 1,
@@ -103,7 +102,6 @@ const Company = () => {
     };
     //改变每页条数
     const changePageSize = (pageSizeFun, current) => {
-        console.log(pageSize)
         const parames = {
             companyCode: companyListSelect.companyCode || null,
             companyName: companyListSelect.companyName || null,

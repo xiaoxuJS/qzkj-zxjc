@@ -62,7 +62,6 @@ const ChangeEquipment = ({ changeModal, setChangeModal, clickId, deviceCode, set
     }, [ paramesFun, deviceCodeFun])
     const handleOk = () => {
         validateFields().then(values => {
-            console.log(values)
             values.id = clickId;
             ;(async () => {
                 const {code, msg} = await postDmmDeviceUpdateDevice(values);

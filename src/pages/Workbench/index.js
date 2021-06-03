@@ -1,6 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {
-    getDmmDeviceWorkbenchOverview
+    useHistory
+} from 'react-router-dom'
+import {
+    getDmmDeviceWorkbenchOverview,
+    getDmmDeviceWorkbenchFindDevice,
+    getCpCompanyWorkbenchFindCompany,
+    getSysUserWorkbenchFindUser
 } from '../../api/workbenchUrl';
 import FastAndOperation from './components/FastAndOperation'
 import {
@@ -20,6 +26,7 @@ const { Search } = Input;
 
 
 const Workbench = () => {
+    const history = new useHistory();
     const [equipment, setEquipment] = useState({});
     const [selectType, setSelectType] = useState('0');
     const overviewFun = useCallback(
@@ -47,8 +54,47 @@ const Workbench = () => {
     }
     //搜索
     const onSearch = (value) => {
-        console.log(selectType)
-        console.log(value)
+        switch (selectType) {
+            case '0': //企业
+                ;(async () => {
+                    const {code, msg, data} = await getCpCompanyWorkbenchFindCompany({company: value});
+                    if(code === '20000') {
+                        history.push({pathname: '/company/details', state: {
+                            id: data
+                        }})
+                    }else{
+                        message.error(msg);
+                    }
+                })();
+                break;
+            case '1': //设备
+                ;(async () => {
+                    const {code, msg, data} = await getDmmDeviceWorkbenchFindDevice({device: value});
+                    if(code === '20000') {
+                        history.push({pathname: '/equipmentMessage/details', state: {
+                            deviceId: data
+                        }})
+                    }else{
+                        message.error(msg);
+                    }
+                })();
+                break;
+            case '2': // 用户
+            ;(async () => {
+                const {code, msg, data} = await getSysUserWorkbenchFindUser({name: value});
+                if(code === '20000') {
+                    history.push({pathname: '/user/details', state: {
+                        id: data
+                    }})
+                }else{
+                    message.error(msg);
+                }
+            })();
+                break;
+        
+            default:
+                break;
+        }
     }
     return <WorkbenchAll>
         <WorkbenchAllData>

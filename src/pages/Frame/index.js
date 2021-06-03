@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     useHistory
 } from 'react-router-dom'
@@ -11,37 +11,55 @@ import {
     FrameAll
 } from './style.js';
 
-import { Button, Layout } from 'antd';
+import { Button, Layout, Menu, Dropdown } from 'antd';
 
 const { Header, Content, Sider } = Layout;
 
 const Frame = () => {
     const contentHeight = window.innerHeight - 64 - 24;
     const history = new useHistory();
+    const [imageSrc, setImageSrc] = useState(null);
+    useEffect(() => {
+        setImageSrc(sessionStorage.getItem('head'));
+    }, [])
     //退出登录
     const handleExitLogin = () => {
         sessionStorage.clear();
         history.push('/login')
     }
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <Button type = "link" onClick = {() => handleExitLogin()}>退出登录</Button>
+            </Menu.Item>
+
+        </Menu>
+    );
     return <FrameAll>
         <Layout>
             <Sider
                 breakpoint="lg"
                 collapsedWidth="0"
-                // onBreakpoint={broken => {
-                //     // console.log(broken);
-                // }}
                 onCollapse={(collapsed, type) => {
                     console.log(collapsed, type);
                 }}
             >
-                <div className="logo" />
+                <div className="logo">
+                    在线检测系统
+                </div>
                 <FrameNav menuData={menuRouter} />
             </Sider>
             <Layout>
-                <Header className="site-layout-sub-header-background" style={{ padding: 0 }}> 
+                <Header className="site-layout-sub-header-background" style={{ padding: 0 }}>
                     {/* <span class="icon iconfont icon-user"></span> */}
-                    <Button style = {{float: 'right',marginTop: '16px',marginRight: '16px'}} type = 'primary' onClick = {() => handleExitLogin()}> 退出登录</Button>
+                    <div style={{ float: 'right', marginRight: '16px' }}>
+                        <Dropdown overlay={menu} placement="bottomRight">
+                            {imageSrc ? <img src={imageSrc} alt = '企业图片' style = {{width: '40px', height: '40px',marginTop: '10px', borderRadius: '50%'}} /> : <></>}
+                            {/* <img  */}
+                        </Dropdown>
+                    </div>
+                    {/* <Button  type = 'primary' onClick = {() => handleExitLogin()}> 退出登录</Button> */}
                 </Header>
                 <Content
                     className="site-layout-background"
@@ -53,11 +71,6 @@ const Frame = () => {
                 >
                     <UserRoutes />
                 </Content>
-                {/* <Content style={{ margin: '24px 16px 0' }}>
-                    <div className="site-layout-background" style={{ padding: 24, height: contentHeight, }}>
-                        content
-                    </div>
-                </Content> */}
             </Layout>
         </Layout>
     </FrameAll>
